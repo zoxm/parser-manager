@@ -1,7 +1,5 @@
 package com.example.service;
 
-import cn.hutool.log.StaticLog;
-import com.example.module.entity.MeettingEntity;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +17,14 @@ import org.springframework.stereotype.Service;
 public class KdnuggetsParserServiceImpl implements KdnuggetsParserService {
 
     @Autowired
-    private SaveService saveService;
+    private MeettingService meettingService;
 
     @Override
     public void parser(Document document) {
 
         Elements pages = document.getElementsByClass("page_content");
         pages.forEach(page->{
-            StaticLog.info("page {}  ", page.text());
+
 //            Elements uls = page.getElementsByTag("ul");
 //            uls.forEach(ul ->{
 //                StaticLog.info("会议详情 {}  ", ul.text());

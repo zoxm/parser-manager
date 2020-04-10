@@ -4,10 +4,7 @@ import cn.hutool.log.StaticLog;
 import com.example.module.entity.PageEntity;
 import com.example.module.entity.UrlEntity;
 import com.example.repository.PageEntityRepository;
-import com.example.service.HuodongjiaParserService;
-import com.example.service.MeettingService;
-import com.example.service.RunService;
-import com.example.service.UrlEntityService;
+import com.example.service.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +28,7 @@ import java.util.List;
 public class HuodongjiaController {
 
     @Autowired
-    private RunService runService;
-    @Autowired
-    private UrlEntityService urlEntityService;
-    @Autowired
-    private MeettingService meettingService;
-    @Autowired
-    private PageEntityRepository pageEntityRepository;
+    private PageEntityService pageEntityService;
     @Autowired
     private HuodongjiaParserService huodongjiaParserService;
 
@@ -46,15 +37,31 @@ public class HuodongjiaController {
 
     @RequestMapping("all")
     public String run() {
-        // 读取
-        List<PageEntity> pageEntityList = pageEntityRepository.findAllByFlag("no");
 
-        pageEntityList.forEach(pageEntity -> {
-            Document document = Jsoup.parse(pageEntity.getDocument());
-            StaticLog.info("{}  ", pageEntity);
-            huodongjiaParserService.parser(pageEntity,document);
-        });
+        StaticLog.info("parser-manager 解析开始 {}  ", "===============================");
 
+        Integer count = pageEntityService.findPageEntityCountByFlag("no");
+
+        Integer floor = (int) (Math.floor(count / 16));
+        while ( floor >= 0 ) {
+            floor --;
+            try {
+                // 读取
+                List<PageEntity> pageEntityList = pageEntityService.findPageEntitiesByFlag(floor,"no");
+                pageEntityList.forEach(pageEntity -> {
+                    Document document = Jsoup.parse(pageEntity.getDocument());
+                    StaticLog.info("parser-manager 解析 {}  {}", pageEntity.getUrl(),pageEntity.getFlag());
+                    huodongjiaParserService.parser(pageEntity, document);
+                });
+
+                if ( floor < 0){
+                    count = pageEntityService.findPageEntityCountByFlag("no");
+                    floor = (int) (Math.floor(count / 16));
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
         return "网址：解析完毕";
     }
 }

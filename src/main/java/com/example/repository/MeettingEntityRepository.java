@@ -18,4 +18,6 @@ import java.util.Optional;
 public interface MeettingEntityRepository extends BaseRepository<MeettingEntity,Integer>, JpaSpecificationExecutor<MeettingEntity> {
     @NonNull
     Optional<MeettingEntity> findByName(@NonNull String name);
+    @NonNull
+    Optional<MeettingEntity> findByUrl(@NonNull String url);
 }

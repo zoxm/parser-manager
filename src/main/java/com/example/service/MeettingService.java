@@ -15,4 +15,5 @@ import java.util.List;
 public interface MeettingService {
 
     List<MeettingEntity> findAll();
+    void save(MeettingEntity meettingEntity);
 }

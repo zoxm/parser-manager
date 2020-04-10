@@ -7,7 +7,7 @@ server:
 # 环境配置
 spring:
   profiles:
-    active: dev
+    active: test
 
 # mysql 相关配置
   datasource:

@@ -2,10 +2,9 @@ package com.example.service;
 
 import com.example.module.entity.PageEntity;
 import com.example.repository.PageEntityRepository;
-import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 /**
@@ -21,9 +20,17 @@ public class PageEntityServiceImpl implements PageEntityService {
 
     @Autowired
     private PageEntityRepository pageEntityRepository;
+
+
+
     @Override
-    public List<PageEntity> findAllByFlag(String flag) {
-        List<PageEntity> allByFlag = pageEntityRepository.findAllByFlag(flag);
-        return allByFlag;
+    public Integer findPageEntityCountByFlag(String flag) {
+        return pageEntityRepository.findPageEntityCountByFlag(flag);
+    }
+    @Override
+    public List<PageEntity> findPageEntitiesByFlag(Integer page,String flag) {
+        PageRequest of = PageRequest.of(page, 16);
+        List<PageEntity> pageEntitiesByFlag = pageEntityRepository.findPageEntitiesByFlag(of, flag);
+        return pageEntitiesByFlag;
     }
 }
