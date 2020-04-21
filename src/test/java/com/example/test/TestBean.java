@@ -1,6 +1,8 @@
-package com.example.controller;
+package com.example.test;
+
 
 import cn.hutool.log.StaticLog;
+import com.example.DemoApplication;
 import com.example.module.entity.FileRuleTypeEnum;
 import com.example.module.entity.FilterRuleEntity;
 import com.example.module.entity.SelectorRuleEntity;
@@ -8,28 +10,31 @@ import com.example.module.entity.SelectorTypeEnum;
 import com.example.service.FilterRuleEntityService;
 import com.example.service.ParserService;
 import com.example.service.SelectorRuleEntityService;
-import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
-import org.springframework.stereotype.Component;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
+import java.beans.IntrospectionException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 /**
- * @ClassName ControllerRun
+ * @ClassName TestBean
  * @Description TODO
  * @Author miaoyi
- * @Date 2020-04-01 0:14
+ * @Date 2020-04-20 8:46
  * @Version 1.0
  **/
-@Slf4j
-@Component
-public class ControllerRun implements ApplicationRunner {
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = DemoApplication.class)
+public class TestBean {
 
     @Autowired
     private ParserService parserService;
@@ -40,17 +45,18 @@ public class ControllerRun implements ApplicationRunner {
     @Autowired
     private FilterRuleEntityService filterRuleEntityService;
 
-    @Autowired
-    private HuodongjiaController huodongjiaController;
-    @Override
-    public void run(ApplicationArguments args) throws Exception {
-//        huodongjiaController.run();
-        selectorRuleEntityAndSave();
-        huodongjiaController.runX();
+    @Test
+    public void test1() throws IOException, InvocationTargetException, IntrospectionException, IllegalAccessException, NoSuchFieldException {
+        Connection connect = Jsoup.connect("https://www.huodongjia.com/event-1148549877.html");
+        Document document = connect.get();
+
+        parserService.parser(null,document,"https://www.huodongjia.com/");
+
     }
 
 
-    private void selectorRuleEntityAndSave() throws IOException {
+    @Test
+    public void selectorRuleEntityAndSave() throws IOException {
 
         Connection connect = Jsoup.connect("https://www.huodongjia.com/event-1148549877.html");
         Document document = connect.get();
@@ -412,4 +418,5 @@ public class ControllerRun implements ApplicationRunner {
 
         StaticLog.info("filter 参会指南====：{}  ", filter11);
     }
+
 }

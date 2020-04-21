@@ -1,9 +1,10 @@
-package com.example.service;
+package com.example.service.impl;
 
 import cn.hutool.log.StaticLog;
 import com.example.module.entity.MeettingEntity;
 import com.example.repository.MeettingEntityRepository;
 import com.example.repository.PageEntityRepository;
+import com.example.service.MeettingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,7 @@ public class MeettingServiceImpl implements MeettingService {
     }
     @Override
     public void save(MeettingEntity meettingEntity) {
+
         Optional<MeettingEntity> byUrl = meettingEntityRepository.findByUrl(meettingEntity.getUrl());
         if (byUrl.isPresent()){
             StaticLog.info("重复会议：{}",meettingEntity.getUrl());

@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Accessors(chain = true)
-@Table(schema = "meetting", name = "meetting")
+@Table(schema = "meetting_v2", name = "meetting_v2")
 public class MeettingEntity {
 //
 //    会议名称
@@ -44,18 +44,29 @@ public class MeettingEntity {
     @Column(name = "url", columnDefinition = "varchar(225) not null COMMENT '会议url'")
     private String url;
 
-    @Column(name = "time", columnDefinition = "varchar(225) not null COMMENT '会议时间'")
+    @Lob
+    @Column(name = "time", columnDefinition = "MEDIUMTEXT COLLATE utf8mb4_bin COMMENT '会议时间'")
+//    @Column(name = "time", columnDefinition = "varchar(225) not null COMMENT '会议时间'")
     private String time;
 
     @Lob
     @Column(name = "location", columnDefinition = "MEDIUMTEXT COLLATE utf8mb4_bin COMMENT '会议地点'")
     private String location;
 
-    @Column(name = "scale", columnDefinition = "varchar(225) default null COMMENT '会议规模'")
+    @Lob
+    @Column(name = "scale", columnDefinition = "MEDIUMTEXT COLLATE utf8mb4_bin COMMENT '会议规模'")
     private String scale;
-
-    @Column(name = "company", columnDefinition = "varchar(225) default null COMMENT '主办单位'")
+    @Lob
+    @Column(name = "company", columnDefinition = "MEDIUMTEXT COLLATE utf8mb4_bin COMMENT '主办单位'")
     private String company;
+
+//    @Lob
+//    @Column(name = "detail", columnDefinition = "MEDIUMTEXT COLLATE utf8mb4_bin COMMENT '主办方介绍'")
+//    private String detail;
+
+    @Lob
+    @Column(name = "guide", columnDefinition = "MEDIUMTEXT COLLATE utf8mb4_bin COMMENT '参会指南'")
+    private String guide;
 
     @Column(name = "img", columnDefinition = "varchar(225) default null COMMENT '会议图片链接'")
     private String img;
@@ -65,7 +76,7 @@ public class MeettingEntity {
     private String content;
 
     @Lob
-    @Column(name = "introduce", columnDefinition = "MEDIUMTEXT COLLATE utf8mb4_bin COMMENT '会议介绍'")
+    @Column(name = "introduce", columnDefinition = "MEDIUMTEXT COLLATE utf8mb4_bin COMMENT '主办方介绍'")
     private String introduce;
 
     @Lob

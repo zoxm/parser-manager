@@ -4,13 +4,11 @@ import com.example.module.entity.PageEntity;
 import com.example.repository.base.BaseRepository;
 import lombok.NonNull;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.data.web.PageableDefault;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,10 +23,13 @@ public interface PageEntityRepository extends BaseRepository<PageEntity,Integer>
 
 //    List<PageEntity> findAllByFlag(@NonNull String flag);
 
-    List<PageEntity> findPageEntitiesByFlag(/*@PageableDefault(value = 15, sort = { "id" }, direction = Sort.Direction.DESC)*/ Pageable pageable, @NonNull String flag);
+    List<PageEntity> findPageEntitiesByFlag( Pageable pageable, @NonNull String flag);
 
-    @Query(" select count(p.id) from PageEntity p where p.flag = ?1")
+    @Query(" select count(p.flag) from PageEntity p where p.flag = ?1")
     Integer findPageEntityCountByFlag(String flag);
 
-
+    @Transactional
+    @Modifying
+    @Query("UPDATE PageEntity page SET page.flag = ?1 WHERE page.urlId= ?2 ")
+    int updatePageEntityByUrlId(String flag,String urlId);
 }

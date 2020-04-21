@@ -1,7 +1,8 @@
-package com.example.service;
+package com.example.service.impl;
 
 import com.example.module.entity.UrlEntity;
 import com.example.repository.UrlEntityRepository;
+import com.example.service.UrlEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

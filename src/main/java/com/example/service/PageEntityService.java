@@ -20,4 +20,5 @@ public interface PageEntityService {
 //    List<PageEntity> findAllByFlag(Integer page ,String flag);
     List<PageEntity> findPageEntitiesByFlag(Integer page,String flag);
     Integer findPageEntityCountByFlag(String flag);
+    int updatePageEntityByUrlId(String flag,String urlId);
 }

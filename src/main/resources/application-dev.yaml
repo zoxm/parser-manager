@@ -15,7 +15,15 @@ spring:
   # jpa 相关配置自动建表：update 没有表新建，有表更新操作,控制台显示建表语句 database-platform 表示指定表默认引擎
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    show-sql: true
+    show-sql: false
     database: mysql
     hibernate:
       ddl-auto: update
+
+  # 日志记录
+logging:
+  level:
+    com.example: DEBUG
+    org.hibernate: ERROR
+  file:
+    path: /home/bigdata/application/miuyi/logs/parser
