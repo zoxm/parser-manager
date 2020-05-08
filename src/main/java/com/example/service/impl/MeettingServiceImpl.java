@@ -2,8 +2,7 @@ package com.example.service.impl;
 
 import cn.hutool.log.StaticLog;
 import com.example.module.entity.MeettingEntity;
-import com.example.repository.MeettingEntityRepository;
-import com.example.repository.PageEntityRepository;
+import com.example.repository.MeettingRepository;
 import com.example.service.MeettingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,26 +21,24 @@ import java.util.Optional;
 @Service
 public class MeettingServiceImpl implements MeettingService {
     @Autowired
-    private MeettingEntityRepository meettingEntityRepository;
+    private MeettingRepository meettingRepository;
 
-    @Autowired
-    private PageEntityRepository pageEntityRepository;
 
     @Override
     public List<MeettingEntity> findAll() {
-        List<MeettingEntity> all = meettingEntityRepository.findAll();
+        List<MeettingEntity> all = meettingRepository.findAll();
         return all;
     }
     @Override
     public void save(MeettingEntity meettingEntity) {
-
-        Optional<MeettingEntity> byUrl = meettingEntityRepository.findByUrl(meettingEntity.getUrl());
+//        System.out.println("meettingRepository\t"+this.meettingRepository);
+        Optional<MeettingEntity> byUrl = this.meettingRepository.findByUrl(meettingEntity.getUrl());
         if (byUrl.isPresent()){
-            StaticLog.info("重复会议：{}",meettingEntity.getUrl());
+            StaticLog.info("duplicated URL：{}",meettingEntity.getUrl());
             return;
         }
-        StaticLog.info("持久化：{}",meettingEntity.getUrl());
-        meettingEntityRepository.saveAndFlush(meettingEntity);
+//        StaticLog.info("repository save：{} ",meettingEntity.getUrl() );
+        meettingRepository.saveAndFlush(meettingEntity);
 
         // 刷新已经解析标记
 

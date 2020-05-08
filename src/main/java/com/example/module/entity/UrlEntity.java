@@ -11,6 +11,7 @@ import java.io.Serializable;
 @Entity
 @Accessors(chain = true)
 @Table(schema = "url", name = "url")
+
 public class UrlEntity extends BaseEntity implements Serializable {
 
 
@@ -18,21 +19,23 @@ public class UrlEntity extends BaseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+//    @Column(name = "url_id", columnDefinition = "varchar(225) default null COMMENT 'url_id'")
+//    private String urlId;
+
     @Column(name = "type", columnDefinition = "varchar(225) not null COMMENT 'type'")
     private String type;
 
-    @Column(name = "vol", columnDefinition = "varchar(225) default null COMMENT 'vol'")
-    private String vol;
-
-    @Column(name = "issue", columnDefinition = "varchar(225) default null COMMENT 'issue'")
-    private String issue;
+//    @Column(name = "vol", columnDefinition = "varchar(225) default null COMMENT 'vol'")
+//    private String vol;
+//
+//    @Column(name = "issue", columnDefinition = "varchar(225) default null COMMENT 'issue'")
+//    private String issue;
 
     @Column(name = "title", columnDefinition = "varchar(225) not null COMMENT 'title'")
     private String title;
 
-    @Column(name = "flag", columnDefinition = "varchar(225) not null COMMENT '是否已经下载'")
-    private String flag;
-
+//    @Column(name = "flag", columnDefinition = "varchar(225) not null COMMENT 'flag'")
+//    private String flag;
 
     @Column(name = "url", columnDefinition = "varchar(225) not null COMMENT 'url'")
     private String url;
@@ -40,7 +43,7 @@ public class UrlEntity extends BaseEntity implements Serializable {
     @Column(name = "md5", columnDefinition = "varchar(225) not null COMMENT 'url的md5'")
     private String md5;
 
-    @Column(name = "remark", columnDefinition = "varchar(225) default null COMMENT '是否已经下载document的标记'")
-    private String remark;
+//    @Column(name = "remark", columnDefinition = "varchar(225) default null COMMENT 'remark'")
+//    private String remark;
 
 }

@@ -8,14 +8,14 @@ import org.springframework.lang.NonNull;
 import java.util.Optional;
 
 /**
- * @ClassName UrlEntityRepository
+ * @ClassName UrlRepository
  * @Description TODO
  * @Author miaoyi
  * @Date 2020-03-21 13:07
  * @Version 1.0
  **/
 
-public interface MeettingEntityRepository extends BaseRepository<MeettingEntity,Integer>, JpaSpecificationExecutor<MeettingEntity> {
+public interface MeettingRepository extends BaseRepository<MeettingEntity,Integer>, JpaSpecificationExecutor<MeettingEntity> {
     @NonNull
     Optional<MeettingEntity> findByName(@NonNull String name);
     @NonNull

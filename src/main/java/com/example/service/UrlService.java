@@ -12,7 +12,7 @@ import java.util.List;
  * @Version 1.0
  **/
 
-public interface UrlEntityService {
+public interface UrlService {
 
     List<UrlEntity> findAll();
 }

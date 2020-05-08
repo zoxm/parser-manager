@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Accessors(chain = true)
-@Table(schema = "meetting_v2", name = "meetting_v2")
+@Table(schema = "meetting", name = "meetting")
 public class MeettingEntity {
 //
 //    会议名称
@@ -38,8 +38,8 @@ public class MeettingEntity {
     @Column(name = "name", columnDefinition = "varchar(225) not null COMMENT '会议名称'")
     private String name;
 
-    @Column(name = "url_id", columnDefinition = "varchar(225) not null COMMENT 'page_id'")
-    private String urlId;
+//    @Column(name = "url_id", columnDefinition = "varchar(225) not null COMMENT 'page_id'")
+//    private String urlId;
 
     @Column(name = "url", columnDefinition = "varchar(225) not null COMMENT '会议url'")
     private String url;
